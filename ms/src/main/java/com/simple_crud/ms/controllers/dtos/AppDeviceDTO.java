@@ -1,16 +1,19 @@
 package com.simple_crud.ms.controllers.dtos;
 
-import com.simple_crud.ms.services.models.AppDevice;
 
-public record AppDeviceDTO(
-        String id,
-        Integer hitCount,
-        String osName,
-        String osVersion,
-        String browserName,
-        String browserVersion ) {
+import lombok.*;
 
-    public AppDevice toDomain() {
-        return null;
-    }
-};
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class AppDeviceDTO {
+    private String UUID;
+    private Integer hitCount;
+    private String osName;
+    private String osVersion;
+    private String browserName;
+    private String browserVersion;
+
+}

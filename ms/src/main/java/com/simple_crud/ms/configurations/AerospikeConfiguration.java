@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Configuration
-@EnableAerospikeRepositories(basePackages = "com.simple_crud.ms.services.models")
+@EnableAerospikeRepositories(basePackages = "com.simple_crud.ms.repositories")
 public class AerospikeConfiguration extends AbstractAerospikeDataConfiguration {
 
     @Value("${x_aerospike.host}")

@@ -58,4 +58,14 @@ public class AppDeviceMatchingServiceImpl implements IAppAppDeviceMatchingServic
         return  repository.findAllByOsName(osName);
     }
 
+    @Override
+    public void deleteByUUID(String UUID) {
+        repository.deleteByUUID(UUID);
+    }
+
+    @Override
+    public AppDevice findByUUID(String UUID) throws AppIllegalUserAgentException {
+        return repository.findByUUID(UUID);
+    }
+
 }

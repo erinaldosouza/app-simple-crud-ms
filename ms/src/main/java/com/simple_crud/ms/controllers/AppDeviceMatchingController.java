@@ -18,7 +18,7 @@ public class AppDeviceMatchingController {
         this.service = service;
     }
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<Void> doPost(
             @RequestHeader(value = "User-Agent") String userAgent) {
 
@@ -26,9 +26,9 @@ public class AppDeviceMatchingController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<AppDeviceDTO> doGetById(@PathVariable("id") Long id) {
-        var device = service.findById(id);
+    @GetMapping("{UUID}")
+    public ResponseEntity<AppDeviceDTO> doGetByUUID(@PathVariable("UUID") String UUID) {
+        var device = service.findByUUID(UUID);
         return ResponseEntity.ok().body(device.toDTO());
     }
 
@@ -38,9 +38,9 @@ public class AppDeviceMatchingController {
         return ResponseEntity.ok().body(devices);
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<AppDeviceDTO> doDeleteById(@PathVariable("id") Long id) {
-        service.deleteById(id);
+    @DeleteMapping("{UUID}")
+    public ResponseEntity<AppDeviceDTO> doDeleteByUUID(@PathVariable("UUID") String UUID) {
+        service.deleteByUUID(UUID);
         return ResponseEntity.noContent().build();
     }
 

@@ -10,5 +10,9 @@ public interface IAppAppDeviceMatchingServiceCrud extends IAppGenericCrudInterfa
     void crate(String userAgent);
     AppDevice parseDevice(String userAgent) throws AppIllegalUserAgentException;
     List<AppDevice> findByOsName(String osName);
+    void deleteByUUID(String UUID);
+    AppDevice findByUUID(String UUID) throws AppIllegalUserAgentException;
+
+
 
 }
