@@ -17,7 +17,6 @@ public class ApplicationExceptionHandler {
     private static final String NOT_FOUND_ERROR_MESSAGE = "The specified device does not exist";
 
 
-
     @ExceptionHandler(AppIllegalUserAgentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorResponse> handleIllegalDeviceException(final AppIllegalUserAgentException e) {

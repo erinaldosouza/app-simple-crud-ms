@@ -1,6 +1,5 @@
 package com.simple_crud.ms.repositories;
 
-import com.simple_crud.ms.exceptions.AppIllegalUserAgentException;
 import com.simple_crud.ms.services.models.AppDevice;
 import org.springframework.data.aerospike.repository.AerospikeRepository;
 import org.springframework.stereotype.Repository;
