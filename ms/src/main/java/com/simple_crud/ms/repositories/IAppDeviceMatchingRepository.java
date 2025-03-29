@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface IAppDeviceMatchingRepository extends AerospikeRepository<AppDevice, Long> {
-    List<AppDevice> findAllByOsName(String osNAme);
-    void deleteByUUID(String UUID);
-    Optional<AppDevice> findByUUID(String UUID);
+public interface IAppDeviceMatchingRepository extends AerospikeRepository<AppDevice, String> {
+
+    List<AppDevice> findAllByOsName(String osName);
+
+    Optional<AppDevice> findByOsNameAndOsVersionAndBrowserNameAndBrowserVersion(
+            String osName, String osVersion, String browserName, String browserVersion
+    );
 }

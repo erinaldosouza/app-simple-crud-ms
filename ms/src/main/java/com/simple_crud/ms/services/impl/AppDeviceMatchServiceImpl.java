@@ -2,45 +2,60 @@ package com.simple_crud.ms.services.impl;
 
 import com.simple_crud.ms.exceptions.AppIllegalUserAgentException;
 import com.simple_crud.ms.repositories.IAppDeviceMatchingRepository;
-import com.simple_crud.ms.services.IAppAppDeviceMatchingServiceCrud;
+import com.simple_crud.ms.services.IAppAppDeviceMatchServiceCrud;
 import com.simple_crud.ms.services.models.AppDevice;
 import io.netty.util.internal.StringUtil;
 import org.springframework.stereotype.Service;
 import ua_parser.Parser;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class AppDeviceMatchingServiceImpl implements IAppAppDeviceMatchingServiceCrud {
+public class AppDeviceMatchServiceImpl implements IAppAppDeviceMatchServiceCrud {
 
     public static final String ERROR_TITLE = "An error occurred";
     public static final String EMPTY_USER_AGENT_MSG = "User-Agent cannot be null nor empty";
+    private static final int HITCOUNT_INCREMENT = 1;
 
     private final IAppDeviceMatchingRepository repository;
 
-    public AppDeviceMatchingServiceImpl(IAppDeviceMatchingRepository iAppDeviceMatchingRepository) {
+    public AppDeviceMatchServiceImpl(IAppDeviceMatchingRepository iAppDeviceMatchingRepository) {
         this.repository = iAppDeviceMatchingRepository;
     }
 
     @Override
-    public AppDevice crate(AppDevice appDevice) {
-        return repository.save(appDevice);
+    public AppDevice create(AppDevice appDevice) {
+
+        var deviceFound = repository.findByOsNameAndOsVersionAndBrowserNameAndBrowserVersion(
+                appDevice.getOsName(), appDevice.getOsVersion(), appDevice.getBrowserName(), appDevice.getBrowserVersion()
+        );
+
+        deviceFound.ifPresent(device -> {
+            device.setHitCount(appDevice.getHitCount() + HITCOUNT_INCREMENT);
+        });
+
+        if(deviceFound.isEmpty()) {
+            deviceFound = Optional.of(repository.save(appDevice));
+        }
+
+        return deviceFound.orElseThrow();
     }
 
     @Override
-    public AppDevice findById(Long id) {
+    public AppDevice findById(String id) {
         return repository.findById(id).orElseThrow();
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         repository.deleteById(id);
     }
 
     @Override
-    public AppDevice crate(String userAgent) {
+    public AppDevice create(String userAgent) {
         var appDevice = this.parseDevice(userAgent);
-        return this.crate(appDevice);
+        return this.create(appDevice);
     }
 
     @Override
@@ -65,17 +80,6 @@ public class AppDeviceMatchingServiceImpl implements IAppAppDeviceMatchingServic
     public List<AppDevice> findByOsName(String osName) {
         return  repository.findAllByOsName(osName);
     }
-
-    @Override
-    public void deleteByUUID(String UUID) {
-        repository.deleteByUUID(UUID);
-    }
-
-    @Override
-    public AppDevice findByUUID(String UUID) {
-        return repository.findByUUID(UUID).orElseThrow();
-    }
-
 
     private String getVersion(String major, String minor, String patch) {
         StringBuilder version = new StringBuilder();

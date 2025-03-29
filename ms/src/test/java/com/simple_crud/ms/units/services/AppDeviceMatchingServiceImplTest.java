@@ -3,7 +3,7 @@ package com.simple_crud.ms.units.services;
 
 import com.simple_crud.ms.exceptions.AppIllegalUserAgentException;
 import com.simple_crud.ms.repositories.IAppDeviceMatchingRepository;
-import com.simple_crud.ms.services.impl.AppDeviceMatchingServiceImpl;
+import com.simple_crud.ms.services.impl.AppDeviceMatchServiceImpl;
 import com.simple_crud.ms.services.models.AppDevice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,11 +29,11 @@ class AppDeviceMatchingServiceImplTest {
     private IAppDeviceMatchingRepository repository;
 
     @InjectMocks
-    private AppDeviceMatchingServiceImpl service;
+    private AppDeviceMatchServiceImpl service;
 
     private AppDevice appDevice;
 
-    private static final String UUID = "123e4567-e89b-12d3-a456-426614174000";
+    private static final String ID = "123e4567-e89b-12d3-a456-426614174000";
 
     static Stream<Arguments> provideUserAgents() {
         return Stream.of(
@@ -69,7 +69,7 @@ class AppDeviceMatchingServiceImplTest {
     @Test
     void testCreateAppDevice() {
         when(repository.save(any(AppDevice.class))).thenReturn(appDevice);
-        AppDevice savedDevice = service.crate(appDevice);
+        AppDevice savedDevice = service.create(appDevice);
         assertNotNull(savedDevice);
         assertEquals("Linux", savedDevice.getOsName());
         verify(repository, times(1)).save(any(AppDevice.class));
@@ -77,28 +77,28 @@ class AppDeviceMatchingServiceImplTest {
 
     @Test
     void testFindById() {
-        when(repository.findById(1L)).thenReturn(Optional.of(appDevice));
-        AppDevice foundDevice = service.findById(1L);
+        when(repository.findById(ID)).thenReturn(Optional.of(appDevice));
+        AppDevice foundDevice = service.findById(ID);
         assertNotNull(foundDevice);
         assertEquals("Linux", foundDevice.getOsName());
-        verify(repository, times(1)).findById(1L);
+        verify(repository, times(1)).findById(ID);
     }
 
     @Test
     void testFindByIdWhenNoSuchElement() {
-        when(repository.findById(1L)).thenThrow(new NoSuchElementException());
+        when(repository.findById(ID)).thenThrow(new NoSuchElementException());
         assertThrows(NoSuchElementException.class, () -> {
-            service.findById(1L);
+            service.findById(ID);
         });
 
-        verify(repository, times(1)).findById(1L);
+        verify(repository, times(1)).findById(ID);
     }
 
     @Test
     void testDeleteById() {
-        doNothing().when(repository).deleteById(1L);
-        service.deleteById(1L);
-        verify(repository, times(1)).deleteById(1L);
+        doNothing().when(repository).deleteById(ID);
+        service.deleteById(ID);
+        verify(repository, times(1)).deleteById(ID);
     }
 
     @Test
@@ -121,33 +121,6 @@ class AppDeviceMatchingServiceImplTest {
         verify(repository, times(1)).findAllByOsName("Linux");
     }
 
-    @Test
-    void testDeleteByUUID() {
-        doNothing().when(repository).deleteByUUID(UUID);
-        service.deleteByUUID(UUID);
-        verify(repository, times(1)).deleteByUUID(UUID);
-    }
-
-    @Test
-    void testFindByUUID() {
-        when(repository.findByUUID(UUID)).thenReturn(Optional.of(appDevice));
-        AppDevice foundDevice = service.findByUUID(UUID);
-        assertNotNull(foundDevice);
-        assertEquals("Linux", foundDevice.getOsName());
-        verify(repository, times(1)).findByUUID(UUID);
-    }
-
-    @Test
-    void testFindByUUIDWhenNoSuchElement() {
-        when(repository.findByUUID(UUID)).thenThrow(new NoSuchElementException());
-
-        assertThrows(NoSuchElementException.class, () -> {
-            service.findByUUID(UUID);
-        });
-
-        verify(repository, times(1)).findByUUID(UUID);
-    }
-
     @ParameterizedTest
     @MethodSource("provideUserAgents")
     void testParseDevice(String userAgent, String expectedOs, String expectedOsVersion, String expectedBrowser, String expectedBrowserVersion) {
@@ -168,8 +141,8 @@ class AppDeviceMatchingServiceImplTest {
             service.parseDevice(invalidUserAgent);
         });
 
-        assertEquals(AppDeviceMatchingServiceImpl.ERROR_TITLE, exception.getTitle());
-        assertEquals(AppDeviceMatchingServiceImpl.EMPTY_USER_AGENT_MSG, exception.getMessage());
+        assertEquals(AppDeviceMatchServiceImpl.ERROR_TITLE, exception.getTitle());
+        assertEquals(AppDeviceMatchServiceImpl.EMPTY_USER_AGENT_MSG, exception.getMessage());
 
     }
 }

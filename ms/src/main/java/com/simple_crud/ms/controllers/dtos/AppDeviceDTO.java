@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class AppDeviceDTO {
-    private String UUID;
+    private String id;
     private Integer hitCount;
     private String osName;
     private String osVersion;

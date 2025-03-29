@@ -1,7 +1,7 @@
 package com.simple_crud.ms.controllers;
 
 import com.simple_crud.ms.controllers.dtos.AppDeviceDTO;
-import com.simple_crud.ms.services.IAppAppDeviceMatchingServiceCrud;
+import com.simple_crud.ms.services.IAppAppDeviceMatchServiceCrud;
 import com.simple_crud.ms.services.models.AppDevice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("device-matching")
+@RequestMapping("device-match")
 public class AppDeviceMatchingController {
 
-    private final IAppAppDeviceMatchingServiceCrud service;
+    private final IAppAppDeviceMatchServiceCrud service;
 
-    public AppDeviceMatchingController(IAppAppDeviceMatchingServiceCrud service) {
+    public AppDeviceMatchingController(IAppAppDeviceMatchServiceCrud service) {
         this.service = service;
     }
 
@@ -22,13 +22,13 @@ public class AppDeviceMatchingController {
     public ResponseEntity<Void> doPost(
             @RequestHeader(value = "User-Agent") String userAgent) {
 
-        service.crate(userAgent);
+        service.create(userAgent);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("{UUID}")
-    public ResponseEntity<AppDeviceDTO> doGetByUUID(@PathVariable("UUID") String UUID) {
-        var device = service.findByUUID(UUID);
+    @GetMapping("{id}")
+    public ResponseEntity<AppDeviceDTO> doGetById(@PathVariable("id") String id) {
+        var device = service.findById(id);
         return ResponseEntity.ok().body(device.toDTO());
     }
 
@@ -38,9 +38,9 @@ public class AppDeviceMatchingController {
         return ResponseEntity.ok().body(devices);
     }
 
-    @DeleteMapping("{UUID}")
-    public ResponseEntity<AppDeviceDTO> doDeleteByUUID(@PathVariable("UUID") String UUID) {
-        service.deleteByUUID(UUID);
+    @DeleteMapping("{id}")
+    public ResponseEntity<AppDeviceDTO> doDeleteById(@PathVariable("id") String id) {
+        service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 

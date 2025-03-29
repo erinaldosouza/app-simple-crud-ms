@@ -10,7 +10,7 @@ spring:
   application:
     name: '@name@'
 
-x_aerospike:
+x-aerospike:
   host: ${DB_HOST}
   port: ${DB_PORT}
   namespace: ${DB_NAMESPACE}
