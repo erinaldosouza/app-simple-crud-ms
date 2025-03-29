@@ -19,13 +19,13 @@ public class AppDeviceMatchingServiceImpl implements IAppAppDeviceMatchingServic
     }
 
     @Override
-    public void crate(AppDevice appDevice) {
-        repository.save(appDevice);
+    public AppDevice crate(AppDevice appDevice) {
+        return repository.save(appDevice);
     }
 
     @Override
     public AppDevice findById(Long id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id).orElseThrow();
     }
 
     @Override
@@ -34,13 +34,13 @@ public class AppDeviceMatchingServiceImpl implements IAppAppDeviceMatchingServic
     }
 
     @Override
-    public void crate(String userAgent) {
+    public AppDevice crate(String userAgent) {
         var appDevice = this.parseDevice(userAgent);
-        this.crate(appDevice);
+        return this.crate(appDevice);
     }
 
     @Override
-    public AppDevice parseDevice(String userAgent) throws AppIllegalUserAgentException {
+    public AppDevice parseDevice(String userAgent) {
 
         var client = new Parser().parse(userAgent);
         var appDevice = new AppDevice();
@@ -64,8 +64,8 @@ public class AppDeviceMatchingServiceImpl implements IAppAppDeviceMatchingServic
     }
 
     @Override
-    public AppDevice findByUUID(String UUID) throws AppIllegalUserAgentException {
-        return repository.findByUUID(UUID);
+    public AppDevice findByUUID(String UUID) {
+        return repository.findByUUID(UUID).orElseThrow();
     }
 
 }

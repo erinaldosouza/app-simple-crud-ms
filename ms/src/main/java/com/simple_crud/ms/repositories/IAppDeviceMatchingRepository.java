@@ -6,11 +6,11 @@ import org.springframework.data.aerospike.repository.AerospikeRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IAppDeviceMatchingRepository extends AerospikeRepository<AppDevice, Long> {
     List<AppDevice> findAllByOsName(String osNAme);
     void deleteByUUID(String UUID);
-    AppDevice findByUUID(String UUID) throws AppIllegalUserAgentException;
-
+    Optional<AppDevice> findByUUID(String UUID);
 }

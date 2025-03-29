@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT}
 
 management:
   endpoints:
@@ -8,10 +8,9 @@ management:
           include: info,health
 spring:
   application:
-    name: ms-device-matching
-
+    name: '@name@'
 
 x_aerospike:
-  host: localhost
-  port: 300
-  namespace: device-matching
+  host: ${DB_HOST}
+  port: ${DB_PORT}
+  namespace: ${DB_NAMESPACE}
