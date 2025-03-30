@@ -51,6 +51,19 @@ mvn clean install
 ```
 You will see all the unit and integration test results
 
+### Running the App with Maven Spring Boot Plugin
+#### If you have Maven available on your localhost
+Make sure you have Maven v3.6.3 or higher available on you localhost
+Navigate to the `/ms` directory and run:
+```sh
+mvn spring-boot:run -DDB_HOST=localhost -DDB_PORT=3000 -DDB_NAMESPACE=device-match -DLOG_LEVEL=INFO
+```
+#### If you DONT have Maven available on your localhost
+Navigate to the `/ms` directory and run:
+```sh
+./mvnw spring-boot:run -Dspring-boot.run.jvmArguments="-DDB_HOST=localhost -DDB_PORT=3000 -DDB_NAMESPACE=device-match -DLOG_LEVEL=INFO -DSERVER_PORT=8080"
+```
+
 ### Running Tests in an IDE
 Run the test classes using your preferred IDE (For example IntelliJ, Eclipse).
 
