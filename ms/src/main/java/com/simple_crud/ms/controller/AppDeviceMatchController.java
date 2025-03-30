@@ -30,7 +30,7 @@ public class AppDeviceMatchController {
 
         LOGGER.atInfo().log("[APP_CONTROLLER] Start matching device. User-Agent: {}", userAgent);
 
-        var device = service.create(userAgent);
+        var device = service.save(userAgent);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -58,7 +58,7 @@ public class AppDeviceMatchController {
     public ResponseEntity<List<AppDeviceDTO>> doGetByOsName(@RequestParam(value = "osName", required = false) String osName) {
         LOGGER.atInfo().log("[APP_CONTROLLER] Start retrieving devices by OS Name: {}", osName);
 
-        var devices = service.findByOsName(osName).stream().map(AppDevice::toDTO).toList();
+        var devices = service.findAllByOsName(osName).stream().map(AppDevice::toDTO).toList();
 
         if (devices.isEmpty()) {
             LOGGER.atWarn().log("[APP_CONTROLLER] No devices found for OS Name: {}", osName);

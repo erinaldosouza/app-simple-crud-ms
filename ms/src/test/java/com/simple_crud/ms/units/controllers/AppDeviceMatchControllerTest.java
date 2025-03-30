@@ -53,11 +53,11 @@ class AppDeviceMatchControllerTest {
 
         this.mockDeviceDTO = mockDevice.toDTO();
 
-        when(service.create(anyString())).thenReturn(mockDevice);
+        when(service.save(anyString())).thenReturn(mockDevice);
         when(service.create(any(AppDevice.class))).thenReturn(mockDevice);
         when(service.findById(anyString())).thenReturn(mockDevice);
-        when(service.findByOsName("Linux")).thenReturn(List.of(mockDevice));
-        when(service.findByOsName("iOS")).thenReturn(List.of());
+        when(service.findAllByOsName("Linux")).thenReturn(List.of(mockDevice));
+        when(service.findAllByOsName("iOS")).thenReturn(List.of());
         doNothing().when(service).deleteById(mockDevice.getId());
     }
 
@@ -70,7 +70,7 @@ class AppDeviceMatchControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.header().exists("Location"));
 
-        verify(service, times(1)).create(anyString());
+        verify(service, times(1)).save(anyString());
     }
 
     @Test
@@ -104,7 +104,7 @@ class AppDeviceMatchControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(mockDevice.getId()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].osName").value(mockDeviceDTO.getOsName()));
 
-        verify(service, times(1)).findByOsName(mockDeviceDTO.getOsName());
+        verify(service, times(1)).findAllByOsName(mockDeviceDTO.getOsName());
     }
 
     @Test
@@ -115,7 +115,7 @@ class AppDeviceMatchControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
 
-        verify(service, times(1)).findByOsName("iOS");
+        verify(service, times(1)).findAllByOsName("iOS");
     }
 
     @Test

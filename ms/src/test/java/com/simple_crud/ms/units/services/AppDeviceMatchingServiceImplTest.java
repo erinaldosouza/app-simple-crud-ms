@@ -109,7 +109,7 @@ class AppDeviceMatchingServiceImplTest {
     @Test
     void testFindByOsName() {
         when(repository.findAllByOsName("Linux")).thenReturn(List.of(appDevice));
-        List<AppDevice> devices = service.findByOsName("Linux");
+        List<AppDevice> devices = service.findAllByOsName("Linux");
         assertFalse(devices.isEmpty());
         assertEquals(1, devices.size());
         verify(repository, times(1)).findAllByOsName("Linux");
@@ -120,7 +120,7 @@ class AppDeviceMatchingServiceImplTest {
         when(repository.findAllByOsName("Linux")).thenThrow(new NoSuchElementException());
 
         assertThrows(NoSuchElementException.class, () -> {
-            service.findByOsName("Linux");
+            service.findAllByOsName("Linux");
         });
 
         verify(repository, times(1)).findAllByOsName("Linux");

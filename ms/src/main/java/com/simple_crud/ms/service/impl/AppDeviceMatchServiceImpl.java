@@ -82,7 +82,7 @@ public class AppDeviceMatchServiceImpl implements IAppAppDeviceMatchService {
     }
 
     @Override
-    public AppDevice create(String userAgent) {
+    public AppDevice save(String userAgent) {
         LOGGER.atInfo().log("[APP_SERVICE] Start creating device from User-Agent: {}", userAgent);
 
         var appDevice = this.parseDevice(userAgent);
@@ -117,7 +117,7 @@ public class AppDeviceMatchServiceImpl implements IAppAppDeviceMatchService {
 
     //TODO osName case insensitive or always use toLowerCase ou toUpperCase on osName when saving the devices
     @Override
-    public List<AppDevice> findByOsName(String osName) {
+    public List<AppDevice> findAllByOsName(String osName) {
         LOGGER.atInfo().log("[APP_SERVICE] Start retrieving devices by OS Name: {}", osName);
 
         var devices = repository.findAllByOsName(osName);
