@@ -83,13 +83,14 @@ class AppDeviceMatchingServiceImplTest {
 
     @Test
     void testCreateAppDeviceMatched() {
+        appDevice.setHitCount(1);
         when(repository.findById(anyString())).thenReturn(Optional.of(appDevice));
         when(repository.save(any(AppDevice.class))).thenReturn(appDevice);
 
         AppDevice savedDevice = service.save(appDevice);
         assertNotNull(savedDevice);
         assertEquals("Linux", savedDevice.getOsName());
-        assertEquals(1, savedDevice.getHitCount());
+        assertEquals(2, savedDevice.getHitCount());
         verify(repository, times(1)).save(any(AppDevice.class));
     }
 
