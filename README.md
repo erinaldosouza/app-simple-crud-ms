@@ -4,7 +4,7 @@
 That's a simple demo app using Spring Boot and Aerospike.
 
 ## What does it do?
-It identifies the device used to access the API and records it on Aerospike.
+It identifies the device used to access the API and stores the device information on Aerospike.
 
 ## How can I set it?
 
@@ -49,6 +49,7 @@ Navigate to the `/ms` directory and run:
 ```sh
 mvn clean install
 ```
+You will see all the unit and integration test results
 
 ### Running Tests in an IDE
 Run the test classes using your preferred IDE (For example IntelliJ, Eclipse).
@@ -59,11 +60,11 @@ Run the test classes using your preferred IDE (For example IntelliJ, Eclipse).
 3. Execute the requests to test the API endpoints.
 
 ## Available Endpoints
-| Method | Endpoint                      | Description                      |
-|--------|-------------------------------|----------------------------------|
-| POST   | /device-match                 | Registers a new device           |
-| GET    | /device-match/{id}            | Retrieves a device by ID         |
-| GET    | /device-match?psName={osName} | Retrieves all devices by OS Name |
-| DELETE | /device-match/{id}            | Deletes a device by ID           |
+| Method | Endpoint                      | Description                                       |
+|--------|-------------------------------|---------------------------------------------------|
+| POST   | /device-match                 | Registers a new device                            |
+| GET    | /device-match/{id}            | Retrieves a device by ID                          |
+| GET    | /device-match?osName={osName} | Retrieves all devices by OS Name (Case Sensitive) |
+| DELETE | /device-match/{id}            | Deletes a device by ID                            |
 
 Now you're ready to use Simple CRUD MS!
