@@ -52,7 +52,7 @@ public class AppDeviceMatchServiceImpl implements IAppAppDeviceMatchService {
             appDevice.setHitCount(HIT_COUNT_INCREMENT);
             appDevice.setFirstMatchLdt(ldt);
             appDevice.setLastMatchLdt(ldt);
-            deviceFound = Optional.of(repository.save(appDevice));
+            deviceFound = Optional.of(appDevice);
         }
 
         appDevice = repository.save(deviceFound.get());
