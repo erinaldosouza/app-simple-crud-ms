@@ -142,7 +142,7 @@ class AppDeviceMatchingServiceImplTest {
 
         assertNotNull(parsedDevice);
         assertEquals(expectedOs, parsedDevice.getOsName());
-        //TODO For some reason tha user agent lib is not getting the OS Version when Linux OS.
+        //TODO For some reason tha user agent parse lib is not getting the OS Version when Linux OS.
        // assertEquals(expectedOsVersion, parsedDevice.getOsVersion());
         assertEquals(expectedBrowser, parsedDevice.getBrowserName());
         assertEquals(expectedBrowserVersion, parsedDevice.getBrowserVersion());
