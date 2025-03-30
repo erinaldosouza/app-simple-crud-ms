@@ -1,8 +1,8 @@
 package com.simple_crud.ms.services.impl;
 
 import com.simple_crud.ms.exceptions.AppIllegalUserAgentException;
-import com.simple_crud.ms.repositories.IAppDeviceMatchingRepository;
-import com.simple_crud.ms.services.IAppAppDeviceMatchServiceCrud;
+import com.simple_crud.ms.repositories.IAppDeviceMatchRepository;
+import com.simple_crud.ms.services.IAppAppDeviceMatchService;
 import com.simple_crud.ms.services.models.AppDevice;
 import io.netty.util.internal.StringUtil;
 import org.slf4j.Logger;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AppDeviceMatchServiceImpl implements IAppAppDeviceMatchServiceCrud {
+public class AppDeviceMatchServiceImpl implements IAppAppDeviceMatchService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppDeviceMatchServiceImpl.class);
 
@@ -23,10 +23,10 @@ public class AppDeviceMatchServiceImpl implements IAppAppDeviceMatchServiceCrud 
     public static final String EMPTY_USER_AGENT_MSG = "User-Agent cannot be null nor empty";
     private static final int HIT_COUNT_INCREMENT = 1;
 
-    private final IAppDeviceMatchingRepository repository;
+    private final IAppDeviceMatchRepository repository;
 
-    public AppDeviceMatchServiceImpl(IAppDeviceMatchingRepository iAppDeviceMatchingRepository) {
-        this.repository = iAppDeviceMatchingRepository;
+    public AppDeviceMatchServiceImpl(IAppDeviceMatchRepository iAppDeviceMatchRepository) {
+        this.repository = iAppDeviceMatchRepository;
     }
 
     @Override

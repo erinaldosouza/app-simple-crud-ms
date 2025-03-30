@@ -1,7 +1,7 @@
 package com.simple_crud.ms.controllers;
 
 import com.simple_crud.ms.controllers.dtos.AppDeviceDTO;
-import com.simple_crud.ms.services.IAppAppDeviceMatchServiceCrud;
+import com.simple_crud.ms.services.IAppAppDeviceMatchService;
 import com.simple_crud.ms.services.models.AppDevice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +14,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("device-match")
-public class AppDeviceMatchingController {
+public class AppDeviceMatchController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AppDeviceMatchingController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppDeviceMatchController.class);
 
-    private final IAppAppDeviceMatchServiceCrud service;
+    private final IAppAppDeviceMatchService service;
 
-    public AppDeviceMatchingController(IAppAppDeviceMatchServiceCrud service) {
+    public AppDeviceMatchController(IAppAppDeviceMatchService service) {
         this.service = service;
     }
 

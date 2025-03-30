@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface IAppDeviceMatchingRepository extends AerospikeRepository<AppDevice, String> {
+public interface IAppDeviceMatchRepository extends AerospikeRepository<AppDevice, String> {
 
     List<AppDevice> findAllByOsName(String osName);
 

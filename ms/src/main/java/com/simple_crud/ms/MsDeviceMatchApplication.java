@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MsDeviceMatchingApplication {
+public class MsDeviceMatchApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MsDeviceMatchingApplication.class, args);
+		SpringApplication.run(MsDeviceMatchApplication.class, args);
 	}
 
 }

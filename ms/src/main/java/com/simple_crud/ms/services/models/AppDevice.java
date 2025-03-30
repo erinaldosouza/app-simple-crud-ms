@@ -1,10 +1,7 @@
 package com.simple_crud.ms.services.models;
 
 import com.simple_crud.ms.controllers.dtos.AppDeviceDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.NonFinal;
 import org.springframework.data.aerospike.mapping.Document;
 import org.springframework.data.aerospike.mapping.Field;
@@ -17,6 +14,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Document
 public class AppDevice {
 

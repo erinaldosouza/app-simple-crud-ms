@@ -2,7 +2,7 @@ package com.simple_crud.ms.units.services;
 
 
 import com.simple_crud.ms.exceptions.AppIllegalUserAgentException;
-import com.simple_crud.ms.repositories.IAppDeviceMatchingRepository;
+import com.simple_crud.ms.repositories.IAppDeviceMatchRepository;
 import com.simple_crud.ms.services.impl.AppDeviceMatchServiceImpl;
 import com.simple_crud.ms.services.models.AppDevice;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
 class AppDeviceMatchingServiceImplTest {
 
     @Mock
-    private IAppDeviceMatchingRepository repository;
+    private IAppDeviceMatchRepository repository;
 
     @InjectMocks
     private AppDeviceMatchServiceImpl service;
