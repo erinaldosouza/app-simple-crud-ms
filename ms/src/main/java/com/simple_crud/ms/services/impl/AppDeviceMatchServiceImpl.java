@@ -36,7 +36,6 @@ public class AppDeviceMatchServiceImpl implements IAppAppDeviceMatchService {
         var id = appDevice.generateUUID();
         LOGGER.atInfo().log("[APP_SERVICE] Looking for device match id: {}", id);
 
-
         var deviceFound = repository.findById(id);
 
         deviceFound.ifPresent(device -> {
@@ -118,7 +117,13 @@ public class AppDeviceMatchServiceImpl implements IAppAppDeviceMatchService {
 
     @Override
     public List<AppDevice> findByOsName(String osName) {
-        return  repository.findAllByOsName(osName);
+        LOGGER.atInfo().log("[APP_SERVICE] Start retrieving devices by OS Name: {}", osName);
+
+        var devices = repository.findAllByOsName(osName);
+
+        LOGGER.atInfo().log("[APP_SERVICE] Successfully retried devices by OS Name: {}", osName);
+
+        return  devices;
     }
 
     private String getVersion(String major, String minor, String patch) {
