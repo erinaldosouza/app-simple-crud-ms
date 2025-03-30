@@ -1,7 +1,7 @@
 package com.simple_crud.ms.controller;
 
 import com.simple_crud.ms.dto.AppDeviceDTO;
-import com.simple_crud.ms.service.IAppAppDeviceMatchService;
+import com.simple_crud.ms.service.IAppDeviceMatchService;
 import com.simple_crud.ms.model.AppDevice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +18,9 @@ public class AppDeviceMatchController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppDeviceMatchController.class);
 
-    private final IAppAppDeviceMatchService service;
+    private final IAppDeviceMatchService service;
 
-    public AppDeviceMatchController(IAppAppDeviceMatchService service) {
+    public AppDeviceMatchController(IAppDeviceMatchService service) {
         this.service = service;
     }
 

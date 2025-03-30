@@ -2,7 +2,7 @@ package com.simple_crud.ms.service.impl;
 
 import com.simple_crud.ms.exception.AppIllegalUserAgentException;
 import com.simple_crud.ms.repository.IAppDeviceMatchRepository;
-import com.simple_crud.ms.service.IAppAppDeviceMatchService;
+import com.simple_crud.ms.service.IAppDeviceMatchService;
 import com.simple_crud.ms.model.AppDevice;
 import io.netty.util.internal.StringUtil;
 import org.slf4j.Logger;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AppDeviceMatchServiceImpl implements IAppAppDeviceMatchService {
+public class AppDeviceMatchServiceImpl implements IAppDeviceMatchService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppDeviceMatchServiceImpl.class);
 
