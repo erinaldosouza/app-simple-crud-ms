@@ -1,19 +1,17 @@
 package com.simple_crud.ms.services.models;
 
-import com.aerospike.client.query.IndexCollectionType;
-import com.aerospike.client.query.IndexType;
 import com.simple_crud.ms.controllers.dtos.AppDeviceDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.NonFinal;
-import org.springframework.data.aerospike.annotation.Indexed;
 import org.springframework.data.aerospike.mapping.Document;
 import org.springframework.data.aerospike.mapping.Field;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -29,24 +27,24 @@ public class AppDevice {
     @NonFinal
     private Integer hitCount;
 
-    @Indexed(type = IndexType.STRING, collectionType = IndexCollectionType.DEFAULT)
+    @Field
     private String osName;
 
-    @Indexed(type = IndexType.STRING, collectionType = IndexCollectionType.DEFAULT)
+    @Field
     private String osVersion;
 
-    @Indexed( type = IndexType.STRING, collectionType = IndexCollectionType.DEFAULT)
+    @Field
     private String browserName;
 
-    @Indexed(type = IndexType.STRING, collectionType = IndexCollectionType.DEFAULT)
+    @Field
     private String browserVersion;
 
     @Field
-    private LocalDateTime firstMatchDateTime;
+    private LocalDateTime firstMatchLdt;
 
     @Field
     @NonFinal
-    private LocalDateTime lastMatchDateTime;
+    private LocalDateTime lastMatchLdt;
 
     public AppDeviceDTO toDTO() {
         return AppDeviceDTO.builder()
@@ -57,6 +55,12 @@ public class AppDevice {
                 .browserName(browserName)
                 .browserVersion(browserVersion)
                 .build();
+    }
+
+    public String generateUUID() {
+        String input = String.join(":", new String[] {osName, osVersion, browserName, browserVersion});
+        this.id = UUID.nameUUIDFromBytes(input.getBytes()).toString();
+        return id;
     }
 
 }

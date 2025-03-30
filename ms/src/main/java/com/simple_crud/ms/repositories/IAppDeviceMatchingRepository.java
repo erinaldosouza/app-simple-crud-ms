@@ -15,4 +15,5 @@ public interface IAppDeviceMatchingRepository extends AerospikeRepository<AppDev
     Optional<AppDevice> findByOsNameAndOsVersionAndBrowserNameAndBrowserVersion(
             String osName, String osVersion, String browserName, String browserVersion
     );
+
 }

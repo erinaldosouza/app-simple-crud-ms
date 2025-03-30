@@ -1,11 +1,6 @@
 server:
   port: ${SERVER_PORT}
 
-management:
-  endpoints:
-      web:
-        exposure:
-          include: info,health
 spring:
   application:
     name: '@name@'
@@ -14,3 +9,11 @@ x-aerospike:
   host: ${DB_HOST}
   port: ${DB_PORT}
   namespace: ${DB_NAMESPACE}
+
+logging:
+  level:
+    org:
+      springframework:
+        web: ${LOG_LEVEL}
+        data:
+          aerospike: ${LOG_LEVEL}

@@ -14,6 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -64,14 +65,18 @@ class AppDeviceMatchingServiceImplTest {
         appDevice.setOsVersion("5.15.0");
         appDevice.setBrowserName("Chrome");
         appDevice.setBrowserVersion("91.0.4472.124");
+        appDevice.setHitCount(0);
     }
 
     @Test
     void testCreateAppDevice() {
+        when(repository.findById(anyString())).thenReturn(Optional.of(appDevice));
         when(repository.save(any(AppDevice.class))).thenReturn(appDevice);
+
         AppDevice savedDevice = service.create(appDevice);
         assertNotNull(savedDevice);
         assertEquals("Linux", savedDevice.getOsName());
+        assertEquals(1, savedDevice.getHitCount());
         verify(repository, times(1)).save(any(AppDevice.class));
     }
 
