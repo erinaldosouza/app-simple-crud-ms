@@ -73,7 +73,7 @@ class AppDeviceMatchingServiceImplTest {
         when(repository.findById(anyString())).thenReturn(Optional.of(appDevice));
         when(repository.save(any(AppDevice.class))).thenReturn(appDevice);
 
-        AppDevice savedDevice = service.create(appDevice);
+        AppDevice savedDevice = service.save(appDevice);
         assertNotNull(savedDevice);
         assertEquals("Linux", savedDevice.getOsName());
         assertEquals(1, savedDevice.getHitCount());

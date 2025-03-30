@@ -54,7 +54,7 @@ class AppDeviceMatchControllerTest {
         this.mockDeviceDTO = mockDevice.toDTO();
 
         when(service.save(anyString())).thenReturn(mockDevice);
-        when(service.create(any(AppDevice.class))).thenReturn(mockDevice);
+        when(service.save(any(AppDevice.class))).thenReturn(mockDevice);
         when(service.findById(anyString())).thenReturn(mockDevice);
         when(service.findAllByOsName("Linux")).thenReturn(List.of(mockDevice));
         when(service.findAllByOsName("iOS")).thenReturn(List.of());

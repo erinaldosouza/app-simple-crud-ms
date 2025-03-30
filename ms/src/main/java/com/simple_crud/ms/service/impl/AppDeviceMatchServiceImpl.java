@@ -30,7 +30,7 @@ public class AppDeviceMatchServiceImpl implements IAppDeviceMatchService {
     }
 
     @Override
-    public AppDevice create(AppDevice appDevice) {
+    public AppDevice save(AppDevice appDevice) {
         LOGGER.atInfo().log("[APP_SERVICE] Start creating device: {}", appDevice);
 
         var id = appDevice.generateUUID();
@@ -86,7 +86,7 @@ public class AppDeviceMatchServiceImpl implements IAppDeviceMatchService {
         LOGGER.atInfo().log("[APP_SERVICE] Start creating device from User-Agent: {}", userAgent);
 
         var appDevice = this.parseDevice(userAgent);
-        appDevice =  this.create(appDevice);
+        appDevice =  this.save(appDevice);
 
         LOGGER.atInfo().log("[APP_SERVICE] Successfully created device from User-Agent: {}", userAgent);
 
