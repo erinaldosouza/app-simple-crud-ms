@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "a3e3c686-5d6b-4eef-9011-5da470caf126",
+		"name": "Device Match MS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7017198"
+	},
+	"item": [
+		{
+			"name": "Device Match - Postman User-Agent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/device-match",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"device-match"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Match - Linux/Firefox User-Agent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0, Linux x86_64 Firefox 89.0.1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/device-match",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"device-match"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Match - Linux/Chrome User-Agent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/device-match",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"device-match"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Match - Android/Chrome User-Agent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Linux; Android 11; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472 Mobile Safari/537.36 Android 11 Chrome 91.0.4472",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/device-match",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"device-match"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Match - Windows/Chrome User-Agent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/device-match",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"device-match"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Match - Windows/Firefox User-Agent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/device-match",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"device-match"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Match - iOS/Safari User-Agent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/device-match",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"device-match"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Match By Id",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/device-match/b0b54743-18fd-388f-93cd-27f04364ec99",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"device-match",
+						"b0b54743-18fd-388f-93cd-27f04364ec99"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Device Match By Id",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/device-match/ec0a86f8-a860-3a0a-944a-b83577dc144a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"device-match",
+						"ec0a86f8-a860-3a0a-944a-b83577dc144a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Match By OS Name",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/device-match/351c4716-f3b4-3792-8363-d032ea186036",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"device-match",
+						"351c4716-f3b4-3792-8363-d032ea186036"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

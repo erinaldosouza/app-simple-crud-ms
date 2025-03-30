@@ -1,7 +1,7 @@
-package com.simple_crud.ms.services;
+package com.simple_crud.ms.service;
 
 
-import com.simple_crud.ms.services.models.AppDevice;
+import com.simple_crud.ms.model.AppDevice;
 
 import java.util.List;
 

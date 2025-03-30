@@ -1,9 +1,9 @@
 package com.simple_crud.ms.units.controllers;
 
-import com.simple_crud.ms.controllers.AppDeviceMatchController;
-import com.simple_crud.ms.controllers.dtos.AppDeviceDTO;
-import com.simple_crud.ms.services.impl.AppDeviceMatchServiceImpl;
-import com.simple_crud.ms.services.models.AppDevice;
+import com.simple_crud.ms.controller.AppDeviceMatchController;
+import com.simple_crud.ms.dto.AppDeviceDTO;
+import com.simple_crud.ms.service.impl.AppDeviceMatchServiceImpl;
+import com.simple_crud.ms.model.AppDevice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

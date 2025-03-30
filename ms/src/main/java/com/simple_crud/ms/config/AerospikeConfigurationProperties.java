@@ -1,4 +1,4 @@
-package com.simple_crud.ms.configurations;
+package com.simple_crud.ms.config;
 
 import lombok.Getter;
 import lombok.Setter;

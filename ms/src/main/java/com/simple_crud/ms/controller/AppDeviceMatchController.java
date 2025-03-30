@@ -1,8 +1,8 @@
-package com.simple_crud.ms.controllers;
+package com.simple_crud.ms.controller;
 
-import com.simple_crud.ms.controllers.dtos.AppDeviceDTO;
-import com.simple_crud.ms.services.IAppAppDeviceMatchService;
-import com.simple_crud.ms.services.models.AppDevice;
+import com.simple_crud.ms.dto.AppDeviceDTO;
+import com.simple_crud.ms.service.IAppAppDeviceMatchService;
+import com.simple_crud.ms.model.AppDevice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

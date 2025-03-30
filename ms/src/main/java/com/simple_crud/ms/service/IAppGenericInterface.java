@@ -1,4 +1,4 @@
-package com.simple_crud.ms.services;
+package com.simple_crud.ms.service;
 
 /**
  *

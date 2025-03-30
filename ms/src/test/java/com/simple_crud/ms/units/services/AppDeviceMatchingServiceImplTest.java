@@ -1,10 +1,10 @@
 package com.simple_crud.ms.units.services;
 
 
-import com.simple_crud.ms.exceptions.AppIllegalUserAgentException;
-import com.simple_crud.ms.repositories.IAppDeviceMatchRepository;
-import com.simple_crud.ms.services.impl.AppDeviceMatchServiceImpl;
-import com.simple_crud.ms.services.models.AppDevice;
+import com.simple_crud.ms.exception.AppIllegalUserAgentException;
+import com.simple_crud.ms.repository.IAppDeviceMatchRepository;
+import com.simple_crud.ms.service.impl.AppDeviceMatchServiceImpl;
+import com.simple_crud.ms.model.AppDevice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

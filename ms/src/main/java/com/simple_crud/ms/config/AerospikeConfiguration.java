@@ -1,4 +1,4 @@
-package com.simple_crud.ms.configurations;
+package com.simple_crud.ms.config;
 
 import com.aerospike.client.Host;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.util.Collections;
 
 @Configuration
 @EnableConfigurationProperties(AerospikeConfigurationProperties.class)
-@EnableAerospikeRepositories(basePackages = "com.simple_crud.ms.repositories")
+@EnableAerospikeRepositories(basePackages = "com.simple_crud.ms.repository")
 public class AerospikeConfiguration extends AbstractAerospikeDataConfiguration {
 
     @Autowired

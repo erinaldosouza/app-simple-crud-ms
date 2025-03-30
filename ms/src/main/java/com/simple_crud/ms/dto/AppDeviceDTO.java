@@ -1,4 +1,4 @@
-package com.simple_crud.ms.controllers.dtos;
+package com.simple_crud.ms.dto;
 
 
 import lombok.*;

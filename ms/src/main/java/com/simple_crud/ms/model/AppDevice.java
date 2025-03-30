@@ -1,6 +1,6 @@
-package com.simple_crud.ms.services.models;
+package com.simple_crud.ms.model;
 
-import com.simple_crud.ms.controllers.dtos.AppDeviceDTO;
+import com.simple_crud.ms.dto.AppDeviceDTO;
 import lombok.*;
 import lombok.experimental.NonFinal;
 import org.springframework.data.aerospike.mapping.Document;

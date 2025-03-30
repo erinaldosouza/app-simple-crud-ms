@@ -1,6 +1,6 @@
-package com.simple_crud.ms.repositories;
+package com.simple_crud.ms.repository;
 
-import com.simple_crud.ms.services.models.AppDevice;
+import com.simple_crud.ms.model.AppDevice;
 import org.springframework.data.aerospike.repository.AerospikeRepository;
 import org.springframework.stereotype.Repository;
 

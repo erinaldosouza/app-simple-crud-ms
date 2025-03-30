@@ -1,4 +1,4 @@
-package com.simple_crud.ms.exceptions;
+package com.simple_crud.ms.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,9 +1,9 @@
-package com.simple_crud.ms.services.impl;
+package com.simple_crud.ms.service.impl;
 
-import com.simple_crud.ms.exceptions.AppIllegalUserAgentException;
-import com.simple_crud.ms.repositories.IAppDeviceMatchRepository;
-import com.simple_crud.ms.services.IAppAppDeviceMatchService;
-import com.simple_crud.ms.services.models.AppDevice;
+import com.simple_crud.ms.exception.AppIllegalUserAgentException;
+import com.simple_crud.ms.repository.IAppDeviceMatchRepository;
+import com.simple_crud.ms.service.IAppAppDeviceMatchService;
+import com.simple_crud.ms.model.AppDevice;
 import io.netty.util.internal.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -115,6 +115,7 @@ public class AppDeviceMatchServiceImpl implements IAppAppDeviceMatchService {
         return appDevice;
     }
 
+    //TODO osName case insensitive or always use toLowerCase ou toUpperCase on osName when saving the devices
     @Override
     public List<AppDevice> findByOsName(String osName) {
         LOGGER.atInfo().log("[APP_SERVICE] Start retrieving devices by OS Name: {}", osName);
