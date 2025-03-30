@@ -69,7 +69,7 @@ Run the test classes using your preferred IDE (For example IntelliJ, Eclipse).
 
 ### API Testing with Postman or Insomnia
 1. Start the application in your preferred IDE.
-2. Import the API collection found in the `/test` directory into Postman or Insomnia.
+2. Import the API collection found in the `/test/collection` directory into Postman or Insomnia.
 3. Execute the requests to test the API endpoints.
 
 ## Available Endpoints

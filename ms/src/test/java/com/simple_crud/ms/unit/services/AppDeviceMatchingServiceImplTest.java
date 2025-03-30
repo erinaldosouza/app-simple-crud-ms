@@ -1,4 +1,4 @@
-package com.simple_crud.ms.units.services;
+package com.simple_crud.ms.unit.services;
 
 
 import com.simple_crud.ms.exception.AppIllegalUserAgentException;
@@ -70,7 +70,19 @@ class AppDeviceMatchingServiceImplTest {
     }
 
     @Test
-    void testCreateAppDevice() {
+    void testCreateAppDeviceFirsMatch() {
+        when(repository.findById(anyString())).thenReturn(Optional.empty());
+        when(repository.save(any(AppDevice.class))).thenReturn(appDevice);
+
+        AppDevice savedDevice = service.save(appDevice);
+        assertNotNull(savedDevice);
+        assertEquals("Linux", savedDevice.getOsName());
+        assertEquals(1, savedDevice.getHitCount());
+        verify(repository, times(1)).save(any(AppDevice.class));
+    }
+
+    @Test
+    void testCreateAppDeviceMatched() {
         when(repository.findById(anyString())).thenReturn(Optional.of(appDevice));
         when(repository.save(any(AppDevice.class))).thenReturn(appDevice);
 

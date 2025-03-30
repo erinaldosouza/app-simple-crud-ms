@@ -1,4 +1,4 @@
-package com.simple_crud.ms.units.controllers;
+package com.simple_crud.ms.unit.controllers;
 
 import com.simple_crud.ms.controller.AppDeviceMatchController;
 import com.simple_crud.ms.dto.AppDeviceDTO;

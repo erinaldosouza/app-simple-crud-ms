@@ -1,4 +1,4 @@
-package com.simple_crud.ms.integrations;
+package com.simple_crud.ms.integration;
 
 import com.simple_crud.ms.dto.AppDeviceDTO;
 import com.simple_crud.ms.model.AppDevice;

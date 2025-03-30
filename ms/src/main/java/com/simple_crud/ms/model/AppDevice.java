@@ -2,7 +2,6 @@ package com.simple_crud.ms.model;
 
 import com.simple_crud.ms.dto.AppDeviceDTO;
 import lombok.*;
-import lombok.experimental.NonFinal;
 import org.springframework.data.aerospike.mapping.Document;
 import org.springframework.data.aerospike.mapping.Field;
 import org.springframework.data.annotation.Id;
@@ -16,36 +15,35 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document
+@Document(collection = "app_devices")
 public class AppDevice {
 
     @Version
     private Long version;
 
     @Id
+    @Field("device_id")
     private String id;
 
-    @Field
-    @NonFinal
+    @Field("hit_count")
     private Integer hitCount;
 
-    @Field
+    @Field("os_name")
     private String osName;
 
-    @Field
+    @Field("os_version")
     private String osVersion;
 
-    @Field
+    @Field("browser_name")
     private String browserName;
 
-    @Field
+    @Field("browser_version")
     private String browserVersion;
 
-    @Field
+    @Field("fist_match_ltd")
     private LocalDateTime firstMatchLdt;
 
-    @Field
-    @NonFinal
+    @Field("last_math_ltd")
     private LocalDateTime lastMatchLdt;
 
     public AppDeviceDTO toDTO() {
