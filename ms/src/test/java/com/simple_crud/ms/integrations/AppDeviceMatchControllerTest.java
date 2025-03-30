@@ -1,40 +1,35 @@
-package com.simple_crud.ms.units.controllers;
+package com.simple_crud.ms.integrations;
 
-import com.simple_crud.ms.controller.AppDeviceMatchController;
 import com.simple_crud.ms.dto.AppDeviceDTO;
 import com.simple_crud.ms.model.AppDevice;
-import com.simple_crud.ms.service.impl.AppDeviceMatchServiceImpl;
+import com.simple_crud.ms.repository.IAppDeviceMatchRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = AppDeviceMatchController.class)
-class AppDeviceMatchControllerTest {
+@SpringBootTest
+@AutoConfigureMockMvc
+public class AppDeviceMatchControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockitoBean
-    private Logger logger;
-
-    @MockitoBean
-    private AppDeviceMatchServiceImpl service;
+    private IAppDeviceMatchRepository repository;
 
     private AppDevice mockDevice;
     private AppDeviceDTO mockDeviceDTO;
@@ -53,12 +48,11 @@ class AppDeviceMatchControllerTest {
 
         this.mockDeviceDTO = mockDevice.toDTO();
 
-        when(service.save(anyString())).thenReturn(mockDevice);
-        when(service.create(any(AppDevice.class))).thenReturn(mockDevice);
-        when(service.findById(anyString())).thenReturn(mockDevice);
-        when(service.findAllByOsName("Linux")).thenReturn(List.of(mockDevice));
-        when(service.findAllByOsName("iOS")).thenReturn(List.of());
-        doNothing().when(service).deleteById(mockDevice.getId());
+        when(repository.save(any(AppDevice.class))).thenReturn(mockDevice);
+        when(repository.findById(anyString())).thenReturn(Optional.of(mockDevice));
+        when(repository.findAllByOsName("Linux")).thenReturn(List.of(mockDevice));
+        when(repository.findAllByOsName("iOS")).thenReturn(List.of());
+        doNothing().when(repository).deleteById(mockDevice.getId());
     }
 
     @Test
@@ -67,10 +61,11 @@ class AppDeviceMatchControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/device-match")
                         .header("User-Agent", userAgent)
                         .contentType(MediaType.APPLICATION_JSON))
+
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.header().exists("Location"));
 
-        verify(service, times(1)).save(anyString());
+        verify(repository, times(1)).save(any(AppDevice.class));
     }
 
     @Test
@@ -81,18 +76,18 @@ class AppDeviceMatchControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(mockDevice.getId()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.osName").value(mockDeviceDTO.getOsName()));
 
-        verify(service, times(1)).findById(mockDevice.getId());
+        verify(repository, times(1)).findById(mockDevice.getId());
     }
 
     @Test
     void testDoGetByIdNotFound() throws Exception {
-        doThrow(NoSuchElementException.class).when(service).findById(anyString());
+        doThrow(NoSuchElementException.class).when(repository).findById(anyString());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/device-match/{id}", mockDevice.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError());
 
-        verify(service, times(1)).findById(mockDevice.getId());
+        verify(repository, times(1)).findById(mockDevice.getId());
     }
 
     @Test
@@ -104,7 +99,7 @@ class AppDeviceMatchControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(mockDevice.getId()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].osName").value(mockDeviceDTO.getOsName()));
 
-        verify(service, times(1)).findAllByOsName(mockDeviceDTO.getOsName());
+        verify(repository, times(1)).findAllByOsName(mockDeviceDTO.getOsName());
     }
 
     @Test
@@ -115,7 +110,7 @@ class AppDeviceMatchControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
 
-        verify(service, times(1)).findAllByOsName("iOS");
+        verify(repository, times(1)).findAllByOsName("iOS");
     }
 
     @Test
@@ -124,6 +119,6 @@ class AppDeviceMatchControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
 
-        verify(service, times(1)).deleteById(mockDevice.getId());
+        verify(repository, times(1)).deleteById(mockDevice.getId());
     }
 }

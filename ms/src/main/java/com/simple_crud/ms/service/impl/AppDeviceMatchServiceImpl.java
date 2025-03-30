@@ -1,9 +1,9 @@
 package com.simple_crud.ms.service.impl;
 
 import com.simple_crud.ms.exception.AppIllegalUserAgentException;
+import com.simple_crud.ms.model.AppDevice;
 import com.simple_crud.ms.repository.IAppDeviceMatchRepository;
 import com.simple_crud.ms.service.IAppDeviceMatchService;
-import com.simple_crud.ms.model.AppDevice;
 import io.netty.util.internal.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
