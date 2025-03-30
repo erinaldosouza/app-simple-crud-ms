@@ -6,6 +6,7 @@ import lombok.experimental.NonFinal;
 import org.springframework.data.aerospike.mapping.Document;
 import org.springframework.data.aerospike.mapping.Field;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -17,6 +18,9 @@ import java.util.UUID;
 @Builder
 @Document
 public class AppDevice {
+
+    @Version
+    private Long version;
 
     @Id
     private String id;
@@ -55,10 +59,9 @@ public class AppDevice {
                 .build();
     }
 
-    public String generateUUID() {
+    public void generateUUID() {
         String input = String.join(":", new String[] {osName, osVersion, browserName, browserVersion});
         this.id = UUID.nameUUIDFromBytes(input.getBytes()).toString();
-        return id;
     }
 
 }

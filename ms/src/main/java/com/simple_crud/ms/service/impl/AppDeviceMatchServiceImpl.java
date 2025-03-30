@@ -12,7 +12,6 @@ import ua_parser.Parser;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AppDeviceMatchServiceImpl implements IAppDeviceMatchService {
@@ -29,22 +28,27 @@ public class AppDeviceMatchServiceImpl implements IAppDeviceMatchService {
         this.repository = iAppDeviceMatchRepository;
     }
 
+   /*
+   TODO - How to deal with race conditions when incrementing the hit count or event when creating new device profile?
+   Not sure about how making it synchronized (using synchronized key word or using ReentrantLook class, for instance) would degrade performance
+   Using OracleDB, one alternative to solve this kind of issue is using "Select for update feature"
+    */
     @Override
-    public AppDevice save(AppDevice appDevice) {
+    public AppDevice save(final AppDevice appDevice) {
         LOGGER.atInfo().log("[APP_SERVICE] Start creating device: {}", appDevice);
 
-        var id = appDevice.generateUUID();
+        var id = appDevice.getId();
         LOGGER.atInfo().log("[APP_SERVICE] Looking for device match id: {}", id);
 
-        var deviceFound = repository.findById(id);
+        var dbDevice = repository.findById(id);
 
-        deviceFound.ifPresent(device -> {
-            LOGGER.atInfo().log("[APP_SERVICE] Device id: {} found. Incrementing Hit Count from: {} to: {}", id, device.getHitCount(), device.getHitCount() + HIT_COUNT_INCREMENT);
-            device.setHitCount(device.getHitCount() + HIT_COUNT_INCREMENT);
-            device.setLastMatchLdt(LocalDateTime.now());
-        });
-
-        if(deviceFound.isEmpty()) {
+        dbDevice.ifPresentOrElse(deviceFound -> {
+            LOGGER.atInfo().log("[APP_SERVICE] Device id: {} found. Incrementing Hit Count from: {} to: {}", id, deviceFound.getHitCount(), deviceFound.getHitCount() + HIT_COUNT_INCREMENT);
+            deviceFound.setHitCount(deviceFound.getHitCount() + HIT_COUNT_INCREMENT);
+            deviceFound.setLastMatchLdt(LocalDateTime.now());
+            repository.save(deviceFound);
+        },
+        () -> {
             LOGGER.atInfo().log("[APP_SERVICE] No matching found for device id: {}. Creating new device.", id);
 
             var ldt = LocalDateTime.now();
@@ -52,14 +56,12 @@ public class AppDeviceMatchServiceImpl implements IAppDeviceMatchService {
             appDevice.setHitCount(HIT_COUNT_INCREMENT);
             appDevice.setFirstMatchLdt(ldt);
             appDevice.setLastMatchLdt(ldt);
-            deviceFound = Optional.of(appDevice);
-        }
-
-        appDevice = repository.save(deviceFound.get());
+            repository.save(appDevice);
+        });
 
         LOGGER.atInfo().log("[APP_SERVICE] Successfully executed device operation. Device: {}", appDevice);
 
-        return appDevice;
+        return  dbDevice.orElse(appDevice);
     }
 
     @Override
@@ -109,13 +111,12 @@ public class AppDeviceMatchServiceImpl implements IAppDeviceMatchService {
         appDevice.setOsVersion(getVersion(client.os.major, client.os.minor,  client.os.patch));
         appDevice.setBrowserName(client.userAgent.family);
         appDevice.setBrowserVersion(getVersion(client.userAgent.major, client.userAgent.minor, client.userAgent.patch));
-
+        appDevice.generateUUID();
         LOGGER.atInfo().log("[APP_SERVICE] Successfully parsed device from User-Agent: {}", userAgent);
 
         return appDevice;
     }
 
-    //TODO osName case insensitive or always use toLowerCase ou toUpperCase on osName when saving the devices
     @Override
     public List<AppDevice> findAllByOsName(String osName) {
         LOGGER.atInfo().log("[APP_SERVICE] Start retrieving devices by OS Name: {}", osName);

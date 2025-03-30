@@ -66,6 +66,7 @@ class AppDeviceMatchingServiceImplTest {
         appDevice.setBrowserName("Chrome");
         appDevice.setBrowserVersion("91.0.4472.124");
         appDevice.setHitCount(0);
+        appDevice.generateUUID();
     }
 
     @Test
@@ -92,10 +93,7 @@ class AppDeviceMatchingServiceImplTest {
     @Test
     void testFindByIdWhenNoSuchElement() {
         when(repository.findById(ID)).thenThrow(new NoSuchElementException());
-        assertThrows(NoSuchElementException.class, () -> {
-            service.findById(ID);
-        });
-
+        assertThrows(NoSuchElementException.class, () -> service.findById(ID));
         verify(repository, times(1)).findById(ID);
     }
 
@@ -119,9 +117,7 @@ class AppDeviceMatchingServiceImplTest {
     void testFindByOsNamedWhenNoSuchElement() {
         when(repository.findAllByOsName("Linux")).thenThrow(new NoSuchElementException());
 
-        assertThrows(NoSuchElementException.class, () -> {
-            service.findAllByOsName("Linux");
-        });
+        assertThrows(NoSuchElementException.class, () -> service.findAllByOsName("Linux"));
 
         verify(repository, times(1)).findAllByOsName("Linux");
     }
@@ -133,7 +129,8 @@ class AppDeviceMatchingServiceImplTest {
 
         assertNotNull(parsedDevice);
         assertEquals(expectedOs, parsedDevice.getOsName());
-     //   assertEquals(expectedOsVersion, parsedDevice.getOsVersion()); // For some reason tha user agent lib is not getting the OS Version.
+        //TODO For some reason tha user agent lib is not getting the OS Version.
+       // assertEquals(expectedOsVersion, parsedDevice.getOsVersion());
         assertEquals(expectedBrowser, parsedDevice.getBrowserName());
         assertEquals(expectedBrowserVersion, parsedDevice.getBrowserVersion());
     }
@@ -142,9 +139,7 @@ class AppDeviceMatchingServiceImplTest {
     void testParseDeviceWhenNullOrEmptyUserAgent() {
         String invalidUserAgent = "";
 
-        AppIllegalUserAgentException exception = assertThrows(AppIllegalUserAgentException.class, () -> {
-            service.parseDevice(invalidUserAgent);
-        });
+        AppIllegalUserAgentException exception = assertThrows(AppIllegalUserAgentException.class, () ->  service.parseDevice(invalidUserAgent));
 
         assertEquals(AppDeviceMatchServiceImpl.ERROR_TITLE, exception.getTitle());
         assertEquals(AppDeviceMatchServiceImpl.EMPTY_USER_AGENT_MSG, exception.getMessage());
