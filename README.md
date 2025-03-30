@@ -45,7 +45,7 @@ podman run -tid --name aerospike -e "NAMESPACE=device-match" -p 3000-3002:3000-3
 ## How do I test it?
 
 ### Running Tests with Maven
-Navigate to the `/ms` directory and run:
+Navigate to the `/ms` directory, open your CLI and run the following command:
 ```sh
 mvn clean install
 ```
@@ -54,12 +54,12 @@ You will see all the unit and integration test results
 ### Running the App with Maven Spring Boot Plugin
 #### If you have Maven available on your localhost
 Make sure you have Maven v3.6.3 or higher available on you localhost
-Navigate to the `/ms` directory and run:
+Navigate to the `/ms` directory, open your CLI and run the following command:
 ```sh
 mvn spring-boot:run -DDB_HOST=localhost -DDB_PORT=3000 -DDB_NAMESPACE=device-match -DLOG_LEVEL=INFO
 ```
-#### If you DONT have Maven available on your localhost
-Navigate to the `/ms` directory and run:
+#### If you DON'T have Maven available on your localhost
+Navigate to the `/ms` directory, open your CLI and run the following command:
 ```sh
 ./mvnw spring-boot:run -Dspring-boot.run.jvmArguments="-DDB_HOST=localhost -DDB_PORT=3000 -DDB_NAMESPACE=device-match -DLOG_LEVEL=INFO -DSERVER_PORT=8080"
 ```
