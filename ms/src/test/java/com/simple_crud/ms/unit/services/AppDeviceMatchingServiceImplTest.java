@@ -58,14 +58,19 @@ class AppDeviceMatchingServiceImplTest {
         );
     }
 
+    static Stream<String> provideInvalidUserAgents() {
+        return Stream.of("", null, "any invalid User-Agent here");
+    }
+
     @BeforeEach
     void setUp() {
-        appDevice = new AppDevice();
-        appDevice.setOsName("Linux");
-        appDevice.setOsVersion("5.15.0");
-        appDevice.setBrowserName("Chrome");
-        appDevice.setBrowserVersion("91.0.4472.124");
-        appDevice.setHitCount(0);
+        appDevice = AppDevice.builder()
+                .osName("Linux")
+                .osVersion("5.15.0")
+                .browserName("Chrome")
+                .browserVersion("91.0.4472.124")
+                .hitCount(0)
+                .build();
         appDevice.generateUUID();
     }
 
@@ -148,11 +153,11 @@ class AppDeviceMatchingServiceImplTest {
         assertEquals(expectedBrowserVersion, parsedDevice.getBrowserVersion());
     }
 
-    @Test
-    void testParseDeviceWhenNullOrEmptyUserAgent() {
-        String invalidUserAgent = "";
+    @ParameterizedTest
+    @MethodSource("provideInvalidUserAgents")
+    void testParseDeviceWhenNullOrEmptyUserAgent(String userAgent) {
 
-        AppIllegalUserAgentException exception = assertThrows(AppIllegalUserAgentException.class, () ->  service.parseDevice(invalidUserAgent));
+        AppIllegalUserAgentException exception = assertThrows(AppIllegalUserAgentException.class, () ->  service.parseDevice(userAgent));
 
         assertEquals(AppDeviceMatchServiceImpl.ERROR_TITLE, exception.getTitle());
         assertEquals(AppDeviceMatchServiceImpl.EMPTY_USER_AGENT_MSG, exception.getMessage());

@@ -29,6 +29,36 @@
 			"response": []
 		},
 		{
+			"name": "Device Match - Invalid User-Agent",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "grilled meats, stews, and baked goods",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/device-match",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"device-match"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Device Match - Linux/Firefox User-Agent",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {
@@ -217,7 +247,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/device-match/b0b54743-18fd-388f-93cd-27f04364ec99",
+					"raw": "http://localhost:8080/device-match/id-here",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -225,7 +255,7 @@
 					"port": "8080",
 					"path": [
 						"device-match",
-						"b0b54743-18fd-388f-93cd-27f04364ec99"
+						"id-here"
 					]
 				}
 			},
@@ -240,7 +270,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/device-match/ec0a86f8-a860-3a0a-944a-b83577dc144a",
+					"raw": "http://localhost:8080/device-match/id-here",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -248,7 +278,7 @@
 					"port": "8080",
 					"path": [
 						"device-match",
-						"ec0a86f8-a860-3a0a-944a-b83577dc144a"
+						"id-here"
 					]
 				}
 			},
@@ -263,15 +293,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/device-match/351c4716-f3b4-3792-8363-d032ea186036",
+					"raw": "http://localhost:8080/device-match?osName=os-name-here",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"device-match",
-						"351c4716-f3b4-3792-8363-d032ea186036"
+						"device-match"
+					],
+					"query": [
+						{
+							"key": "osName",
+							"value": "os-name-here"
+						}
 					]
 				}
 			},

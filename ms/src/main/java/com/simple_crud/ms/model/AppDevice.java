@@ -1,7 +1,10 @@
 package com.simple_crud.ms.model;
 
+import com.aerospike.client.query.IndexCollectionType;
+import com.aerospike.client.query.IndexType;
 import com.simple_crud.ms.dto.AppDeviceDTO;
 import lombok.*;
+import org.springframework.data.aerospike.annotation.Indexed;
 import org.springframework.data.aerospike.mapping.Document;
 import org.springframework.data.aerospike.mapping.Field;
 import org.springframework.data.annotation.Id;
@@ -29,6 +32,7 @@ public class AppDevice {
     private Integer hitCount;
 
     @Field("os_name")
+    @Indexed(name = "osName_idx", type = IndexType.STRING, collectionType = IndexCollectionType.DEFAULT)
     private String osName;
 
     @Field("os_version")

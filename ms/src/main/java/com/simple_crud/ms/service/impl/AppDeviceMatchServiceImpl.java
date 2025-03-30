@@ -5,6 +5,7 @@ import com.simple_crud.ms.model.AppDevice;
 import com.simple_crud.ms.repository.IAppDeviceMatchRepository;
 import com.simple_crud.ms.service.IAppDeviceMatchService;
 import io.netty.util.internal.StringUtil;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -14,19 +15,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AppDeviceMatchServiceImpl implements IAppDeviceMatchService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppDeviceMatchServiceImpl.class);
 
     public static final String ERROR_TITLE = "An error occurred";
-    public static final String EMPTY_USER_AGENT_MSG = "User-Agent cannot be null nor empty";
+    public static final String EMPTY_USER_AGENT_MSG = "User-Agent is invalid, null or empty";
     private static final int HIT_COUNT_INCREMENT = 1;
+private static final List<String> VALID_AGENT = List.of("Safari", "Chrome", "Firefox", "Edg", "Postman", "Insomnia");
+    private static final Parser UA_PARSER = new Parser();
 
     private final IAppDeviceMatchRepository repository;
-
-    public AppDeviceMatchServiceImpl(IAppDeviceMatchRepository iAppDeviceMatchRepository) {
-        this.repository = iAppDeviceMatchRepository;
-    }
 
    /*
    TODO - How to deal with race conditions when incrementing the hit count or event when creating new device profile?
@@ -104,14 +104,21 @@ public class AppDeviceMatchServiceImpl implements IAppDeviceMatchService {
             throw new AppIllegalUserAgentException(ERROR_TITLE, EMPTY_USER_AGENT_MSG);
         }
 
-        var client = new Parser().parse(userAgent);
-        var appDevice = new AppDevice();
+        VALID_AGENT.stream()
+                .filter(validUa -> userAgent.toLowerCase().contains(validUa.toLowerCase()))
+                .findAny().orElseThrow(() -> new AppIllegalUserAgentException(ERROR_TITLE, EMPTY_USER_AGENT_MSG));
 
-        appDevice.setOsName(client.os.family);
-        appDevice.setOsVersion(getVersion(client.os.major, client.os.minor,  client.os.patch));
-        appDevice.setBrowserName(client.userAgent.family);
-        appDevice.setBrowserVersion(getVersion(client.userAgent.major, client.userAgent.minor, client.userAgent.patch));
+        var client = UA_PARSER.parse(userAgent);
+
+        var appDevice = AppDevice.builder()
+                .osName(client.os.family)
+                .osVersion(getVersion(client.os.major, client.os.minor,  client.os.patch))
+                .browserName(client.userAgent.family)
+                .browserVersion(getVersion(client.userAgent.major, client.userAgent.minor, client.userAgent.patch))
+                .build();
+
         appDevice.generateUUID();
+
         LOGGER.atInfo().log("[APP_SERVICE] Successfully parsed device from User-Agent: {}", userAgent);
 
         return appDevice;
