@@ -117,6 +117,17 @@ class AppDeviceMatchControllerTest {
         verify(service, times(1)).findAllByOsName("iOS");
     }
 
+
+    @Test
+    void testDoGetByOsNameMissingRequiredParameter() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/devices")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
+
+        verifyNoInteractions(service);
+    }
+
+
     @Test
     void testDoDeleteById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/devices/{id}", mockDevice.getId())
