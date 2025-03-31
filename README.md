@@ -76,7 +76,7 @@ Make sure you have Lombok plugin installed.
 ## Available Endpoints
 | Method | Endpoint                      | Description                                       |
 |--------|-------------------------------|---------------------------------------------------|
-| POST   | /device-match                 | Registers a new device                            |
+| POST   | /device-match                 | Matches or registers a new device                 |
 | GET    | /device-match/{id}            | Retrieves a device by ID                          |
 | GET    | /device-match?osName={osName} | Retrieves all devices by OS Name (Case Sensitive) |
 | DELETE | /device-match/{id}            | Deletes a device by ID                            |
