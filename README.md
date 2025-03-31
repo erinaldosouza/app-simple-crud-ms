@@ -56,7 +56,7 @@ You will see all the unit and integration test results
 Make sure you have Maven v3.6.3 or higher available on you localhost
 Navigate to the `/ms` directory, open your CLI and run the following command:
 ```sh
-mvn spring-boot:run -DDB_HOST=localhost -DDB_PORT=3000 -DDB_NAMESPACE=device-match -DLOG_LEVEL=INFO
+mvn spring-boot:run -Dspring-boot.run.jvmArguments="-DDB_HOST=localhost -DDB_PORT=3000 -DDB_NAMESPACE=device-match -DLOG_LEVEL=INFO -DSERVER_PORT=8080"
 ```
 #### If you DON'T have Maven available on your localhost
 Navigate to the `/ms` directory, open your CLI and run the following command:
