@@ -64,11 +64,12 @@ Navigate to the `/ms` directory, open your CLI and run the following command:
 ./mvnw spring-boot:run -Dspring-boot.run.jvmArguments="-DDB_HOST=localhost -DDB_PORT=3000 -DDB_NAMESPACE=device-match -DLOG_LEVEL=INFO -DSERVER_PORT=8080"
 ```
 
-### Running Tests in an IDE
-Run the test classes using your preferred IDE (For example IntelliJ, Eclipse).
+### Run it using your preferred IDE
+Run the Application or Tests using your preferred IDE (For example IntelliJ, Eclipse).
+Make sure you have Lombok plugin installed.
 
 ### API Testing with Postman or Insomnia
-1. Start the application in your preferred IDE.
+1. Start the application in your preferred IDE or using Maven Spring-boot Plugin
 2. Import the API collection found in the `/test/collection` directory into Postman or Insomnia.
 3. Execute the requests to test the API endpoints.
 
