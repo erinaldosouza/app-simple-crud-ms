@@ -99,14 +99,7 @@ private static final List<String> VALID_AGENT = List.of("Safari", "Chrome", "Fir
     public AppDevice parseDevice(String userAgent) {
         LOGGER.atInfo().log("[APP_SERVICE] Start parsing device from User-Agent: {}", userAgent);
 
-        if(StringUtil.isNullOrEmpty(userAgent)) {
-            LOGGER.atError().log("[APP_SERVICE] Failed parsing device. User-Agent is empty or null");
-            throw new AppIllegalUserAgentException(ERROR_TITLE, EMPTY_USER_AGENT_MSG);
-        }
-
-        VALID_AGENT.stream()
-                .filter(validUa -> userAgent.toLowerCase().contains(validUa.toLowerCase()))
-                .findAny().orElseThrow(() -> new AppIllegalUserAgentException(ERROR_TITLE, EMPTY_USER_AGENT_MSG));
+        validateUserAgent(userAgent);
 
         var client = UA_PARSER.parse(userAgent);
 
@@ -133,6 +126,22 @@ private static final List<String> VALID_AGENT = List.of("Safari", "Chrome", "Fir
         LOGGER.atInfo().log("[APP_SERVICE] Successfully retried devices by OS Name: {}", osName);
 
         return  devices;
+    }
+
+    private void validateUserAgent(String userAgent) throws AppIllegalUserAgentException {
+        LOGGER.atError().log("[APP_SERVICE] Start validating User-Agent: {}", userAgent);
+
+        if(StringUtil.isNullOrEmpty(userAgent)) {
+            LOGGER.atError().log("[APP_SERVICE] Failed to validate. User-Agent is empty or null");
+            throw new AppIllegalUserAgentException(ERROR_TITLE, EMPTY_USER_AGENT_MSG);
+        }
+
+        VALID_AGENT.stream()
+                .filter(validUa -> userAgent.toLowerCase().contains(validUa.toLowerCase()))
+                .findAny().orElseThrow(() -> {
+                    LOGGER.atError().log("[APP_SERVICE] Failed to validate. User-Agent: '{}' is invalid", userAgent);
+                    return new AppIllegalUserAgentException(ERROR_TITLE, EMPTY_USER_AGENT_MSG);
+                });
     }
 
     private String getVersion(String major, String minor, String patch) {
