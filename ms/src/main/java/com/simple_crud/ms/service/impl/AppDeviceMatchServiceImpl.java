@@ -85,6 +85,7 @@ private static final List<String> VALID_AGENT = List.of("Safari", "Chrome", "Fir
 
     @Override
     public AppDevice save(String userAgent) {
+
         LOGGER.atInfo().log("[APP_SERVICE] Start creating device from User-Agent: {}", userAgent);
 
         var appDevice = this.parseDevice(userAgent);

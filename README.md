@@ -74,11 +74,11 @@ Make sure you have Lombok plugin installed.
 3. Execute the requests to test the API endpoints.
 
 ## Available Endpoints
-| Method | Endpoint                      | Description                                       |
-|--------|-------------------------------|---------------------------------------------------|
-| POST   | /device-match                 | Matches or registers a new device                 |
-| GET    | /device-match/{id}            | Retrieves a device by ID                          |
-| GET    | /device-match?osName={osName} | Retrieves all devices by OS Name (Case Sensitive) |
-| DELETE | /device-match/{id}            | Deletes a device by ID                            |
+| Method | Endpoint                 | Description                                       |
+|--------|--------------------------|---------------------------------------------------|
+| POST   | /devices                 | Matches or registers a new device                 |
+| GET    | /devices/{id}            | Retrieves a device by ID                          |
+| GET    | /devices?osName={osName} | Retrieves all devices by OS Name (Case Sensitive) |
+| DELETE | /devices/{id}       | Deletes a device by ID                            |
 
 Now you're ready to use Simple CRUD MS!

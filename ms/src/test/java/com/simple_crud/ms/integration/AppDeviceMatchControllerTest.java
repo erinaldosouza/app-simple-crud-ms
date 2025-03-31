@@ -58,7 +58,7 @@ public class AppDeviceMatchControllerTest {
     @Test
     void testDoPost() throws Exception {
         String userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Linux x86_64 Chrome 91.0.4472";
-        mockMvc.perform(MockMvcRequestBuilders.post("/device-match")
+        mockMvc.perform(MockMvcRequestBuilders.post("/devices")
                         .header("User-Agent", userAgent)
                         .contentType(MediaType.APPLICATION_JSON))
 
@@ -70,7 +70,7 @@ public class AppDeviceMatchControllerTest {
 
     @Test
     void testDoGetById() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/device-match/{id}", mockDevice.getId())
+        mockMvc.perform(MockMvcRequestBuilders.get("/devices/{id}", mockDevice.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(mockDevice.getId()))
@@ -83,7 +83,7 @@ public class AppDeviceMatchControllerTest {
     void testDoGetByIdNotFound() throws Exception {
         doThrow(NoSuchElementException.class).when(repository).findById(anyString());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/device-match/{id}", mockDevice.getId())
+        mockMvc.perform(MockMvcRequestBuilders.get("/devices/{id}", mockDevice.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError());
 
@@ -92,7 +92,7 @@ public class AppDeviceMatchControllerTest {
 
     @Test
     void testDoGetByOsNameFound() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/device-match")
+        mockMvc.perform(MockMvcRequestBuilders.get("/devices")
                         .param("osName", "Linux")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -104,18 +104,17 @@ public class AppDeviceMatchControllerTest {
 
     @Test
     void testDoGetByOsNameNotFound() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/device-match")
+        mockMvc.perform(MockMvcRequestBuilders.get("/devices")
                         .param("osName", "iOS")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
 
         verify(repository, times(1)).findAllByOsName("iOS");
     }
 
     @Test
     void testDoDeleteById() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/device-match/{id}", mockDevice.getId())
+        mockMvc.perform(MockMvcRequestBuilders.delete("/devices/{id}", mockDevice.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
 

@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("device-match")
+@RequestMapping("devices")
 public class AppDeviceMatchController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppDeviceMatchController.class);
@@ -25,7 +25,7 @@ public class AppDeviceMatchController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> doPost(
+    public ResponseEntity<Void> createDevice(
             @RequestHeader(value = "User-Agent") String userAgent) {
 
         LOGGER.atInfo().log("[APP_CONTROLLER] Start matching device. User-Agent: {}", userAgent);
@@ -44,7 +44,7 @@ public class AppDeviceMatchController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<AppDeviceDTO> doGetById(@PathVariable("id") String id) {
+    public ResponseEntity<AppDeviceDTO> getDeviceById(@PathVariable("id") String id) {
         LOGGER.atInfo().log("[APP_CONTROLLER] Start retrieving device by Id: {}", id);
 
         var device = service.findById(id);
@@ -55,27 +55,31 @@ public class AppDeviceMatchController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AppDeviceDTO>> doGetByOsName(@RequestParam(value = "osName", required = false) String osName) {
+    public ResponseEntity<List<AppDeviceDTO>> getAllDevicesByOsName(@RequestParam(value = "osName") String osName) {
         LOGGER.atInfo().log("[APP_CONTROLLER] Start retrieving devices by OS Name: {}", osName);
 
         var devices = service.findAllByOsName(osName).stream().map(AppDevice::toDTO).toList();
 
+        ResponseEntity<List<AppDeviceDTO>> response;
+
         if (devices.isEmpty()) {
             LOGGER.atWarn().log("[APP_CONTROLLER] No devices found for OS Name: {}", osName);
+            response = ResponseEntity.noContent().build();
         } else {
             LOGGER.atInfo().log("[APP_CONTROLLER] Successfully retrieved devices by OS Name: {}", osName);
+            response = ResponseEntity.ok().body(devices);
         }
 
-        return ResponseEntity.ok().body(devices);
+        return response;
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<AppDeviceDTO> doDeleteById(@PathVariable("id") String id) {
+    public ResponseEntity<Void> deleteDeviceById(@PathVariable("id") String id) {
         LOGGER.atInfo().log("[APP_CONTROLLER] Start deleting device by Id: {}", id);
 
         service.deleteById(id);
 
-        LOGGER.atInfo().log("[APP_CONTROLLER] SuccessfulLy deleted device by Id: {}", id);
+        LOGGER.atInfo().log("[APP_CONTROLLER] Successfully deleted device by Id: {}", id);
 
         return ResponseEntity.noContent().build();
     }
